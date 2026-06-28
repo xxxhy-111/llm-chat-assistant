@@ -148,7 +148,10 @@ export const api = {
             stream: true,
           }),
         });
-
+        // 如果响应不成功（404/500等），进入演示模式
+        if (!response.ok || DEMO_MODE) {
+          throw new Error('API not available');
+        }
         const reader = response.body?.getReader();
         const decoder = new TextDecoder();
 
